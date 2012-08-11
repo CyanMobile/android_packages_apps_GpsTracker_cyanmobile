@@ -1,0 +1,29 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.gpstracker">
+
+    <!-- Permissions for the Location Service -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!--  Permission for wifi -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- give the location tracker ability to induce device insomnia -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!--  Permission for SD card -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application android:label="@string/app_label" android:icon="@drawable/app_icon">
+        <activity android:name="TrackerActivity" android:label="Gps Tracker">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <service android:name=".TrackerService" />
+        <activity android:label="@string/settings_menu" android:name="SettingsActivity" />
+        <provider android:name=".data.TrackerProvider"
+            android:authorities="com.android.gpstracker" />
+    </application>
+
+</manifest>
