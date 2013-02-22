@@ -117,7 +117,7 @@ public class TrackerService extends Service {
 
         mTrackedProviders = getTrackedProviders();
 
-        List<String> locationProviders = lm.getAllProviders();
+        List<String> locationProviders = lm.getProviders(true);
         mListeners = new ArrayList<LocationTrackingListener>(
                 locationProviders.size());
 
@@ -298,11 +298,10 @@ public class TrackerService extends Service {
          * @param location - new location
          */
         public void onLocationChanged(Location location) {
-            if (location == null) {
-                return;
+            if (location != null) {
+                float distance = getDistanceFromNetwork(location);
+                mTrackerData.writeEntry(location, distance);
             }
-            float distance = getDistanceFromNetwork(location);
-            mTrackerData.writeEntry(location, distance);
         }
 
         /**
